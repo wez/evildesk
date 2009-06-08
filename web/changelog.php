@@ -4,6 +4,13 @@ include 'layout.php';
 head("Wez's Evil Shell\nChangeLog");
 ?>
 
+<h2>Source released to BitBucket (7th June 2009)</h2>
+<p>
+You may now download the sources for evildesk under the terms
+of the GPLv2.
+</p>
+<p><a href="http://bitbucket.org/wez/evildesk/">Collaborate on EvilDesk</a></p>
+
 <h2>New in 0.9 (26th January 2007)</h2>
 <p>
 It's been a year in the making, but worth the wait, I think.
