@@ -5,6 +5,12 @@ echo '<'.'?xml version="1.0" encoding="UTF-8"'.'?'.'>';
 <?php
 
 $changes = array(
+	array('SOURCE', '2009-06-07', '0.9.0.209',
+		'http://bitbucket.org/wez/evildesk/'),
+
+	array('RELEASE', '2006-01-26', '0.9.0.209',
+		'http://evildesk.netevil.org/downloads.php'),
+
 	array('BETA', '2007-01-23', '0.9.0.193', 
 		'http://evildesk.netevil.org/downloads/evildesk-0.9.0.193.msi'),
 

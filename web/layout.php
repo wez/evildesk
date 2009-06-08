@@ -42,7 +42,7 @@ function foot()
 	echo <<<HTML
 	</div>
 	<div class="uptodate">
-		All content is Copyright &copy; 2004-2007 Wez Furlong, unless otherwise attributed.<br/>
+		All content is Copyright &copy; 2004-2009 Wez Furlong, unless otherwise attributed.<br/>
 		<a href="http://netevil.org">Stay up to date with this and other projects by the same author.</a>
 		<br/>
 	</div>
