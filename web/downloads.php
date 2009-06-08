@@ -12,7 +12,7 @@ Copyright &copy; 2004-2009, Wez Furlong, All rights reserved.
 </p>
 
 <p>
-This software is provided as-is, with no warranty.  I am not liable for any bad
+This software is provided as-is, with no warranty, under the terms of the GPLv2.  I am not liable for any bad
 mojo (damage), be it mental, physical or meta-physical, that arises from its
 use.
 </p>
