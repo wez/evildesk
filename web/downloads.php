@@ -26,8 +26,11 @@ use.
 </div>
 
 <p>
-If you agree to the license above, you may <a
-href="http://evildesk.netevil.org/downloads/evildesk.msi">Download evildesk.msi</a>
+If you agree to the license above, you may:<br/>
+<a href="http://evildesk.netevil.org/downloads/evildesk-0.9.0.217.msi"
+    >Download evildesk.msi (32-bit Windows)</a><br/>
+<a href="http://evildesk.netevil.org/downloads/evildesk-0.9.0.217-win64.msi"
+    >Download evildesk.msi (64-bit Windows)</a><br/>
 </p>
 
 <?php
