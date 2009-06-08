@@ -1,0 +1,205 @@
+<?xml version='1.0'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2003/01/wi'>
+	<Product Id='????????-????-????-????-????????????'
+			Name="Wez's Evil Shell Desktop $(var.VERSION)" Language='1033'
+			Version='$(var.VERSION)' Manufacturer='Evil, as in Dr.'>
+		<Package Id='????????-????-????-????-????????????'
+			Description="Wez's Evil Shell Desktop Replacement"
+			Comments='Lighter and faster than the default explorer.exe'
+			Manufacturer='Evil, as in Dr.'
+			InstallerVersion='200'
+			Platforms='$(var.ARCH)'
+			Compressed='yes' />
+
+		<Media Id='1' Cabinet='wezdesk.cab' EmbedCab='yes' />
+
+		<Condition Message='You must be an administrator to install this product'>
+			Privileged
+		</Condition>
+
+		<Condition Message='This product only runs on Windows XP and higher'>
+			VersionNT &gt;= 501
+		</Condition>
+
+		<Property Id='ARPHELPLINK' Value='http://evildesk.netevil.org/'/>
+		<Property Id='ALLUSERS' Value='1'/>
+		<Property Id='UpgradeCode' Value='{F174ECF5-AFA0-48E4-8677-0C599A6403A7}'/>
+
+		<Icon Id='add.ico'		src='add.ico'/>
+		<Icon Id='remove.ico'	src='remove.ico'/>
+		<Icon Id='help.ico'		src='help.ico'/>
+
+		<CustomAction
+			Id='AllowPerUserShells'
+			FileKey='shell'
+			ExeCommand="/sysinstall"
+			Return="asyncWait"
+			Execute="commit"/>
+		<CustomAction
+			Id='RestoreSystemShells'
+			FileKey='shell'
+			ExeCommand="/sysremove"
+			Return="ignore"
+			Execute="deferred"/>
+	
+		<InstallExecuteSequence>
+			<Custom Action='AllowPerUserShells' After='InstallFiles'>(?Core=2) AND ($Core=3)</Custom>
+			<Custom Action='RestoreSystemShells' Before='RemoveFiles'>(?Core=3) AND ($Core=2)</Custom>
+      <RemoveExistingProducts After="InstallFinalize" />
+		</InstallExecuteSequence>
+
+		<Directory Id='WindowsVolume' Name='SourceDir'>
+			<!--
+				Yes, forcing a target directory is evil, but we need to ensure that
+				there are no spaces in the path, otherwise winlogon will not run
+				the shell.
+			-->
+			<Directory Id='EAID' Name='EvilDesk' LongName='EvilDesk-$(var.VERSION)'>
+				<Component Id='Core'
+						Guid='2DD0C092-5293-41fa-B58B-A5D38EA50D32'
+						Win64='$(var.WIN64)'
+						>
+					<RemoveFolder Id='removeShellS'
+						Directory='ShellS'
+						On='uninstall'
+						/>
+					<RemoveFolder Id='removesm'
+						Directory='SMEAID'
+						On='uninstall'
+						/>
+					<File Id='shell' Name='wezdesk.exe' DiskId='1' src='$(var.OUTDIR)\wezdesk.exe'>
+						<Shortcut Id='setmyshell' Arguments='/install'
+							Advertise='yes'
+							Directory='ShellS'
+							Name='SetShell'
+							LongName='Set Shell'
+							Description="Use Wez's Shell instead of Explorer"
+							Icon='add.ico'
+							/>
+						<Shortcut Id='resetmyshell' Arguments='/uninstall'
+							Advertise='yes'
+							Directory='ShellS'
+							Name='ResetSll'
+							LongName='Reset Shell'
+							Description="Go back to using Explorer for your shell"
+							Icon='remove.ico'
+							/>
+					</File>
+					<File Id='fill' Name='default.png' DiskId='1' src='default.png'/>
+					<File Id='arrow' Name='arrow.png' DiskId='1' src='arrow.png'/>
+
+					<File Id='crt' Name='MSVCR80.DLL' DiskId='1'
+							src='$(var.REDIST)\Microsoft.VC80.CRT\MSVCR80.DLL'/>
+					<File Id='stl' Name='MSVCP80.DLL' DiskId='1'
+							src='$(var.REDIST)\Microsoft.VC80.CRT\MSVCP80.DLL'/>
+					<File Id='crtmanifest' LongName='Microsoft.VC80.CRT.manifest'
+							Name='vc80.man' DiskId='1'
+							src='$(var.REDIST)\Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest'/>
+
+					<File Id='menudef' Name='default.evd' LongName='default.evdm'
+							src='default.evdm' DiskId='1'/>
+
+				</Component>
+				<Component Id='Docs' Guid='7A154A1C-30B0-46aa-BF5E-89CA5669EEEC'
+						Win64='$(var.WIN64)'
+						>
+
+					<File Id='docs' Name='docs.htm' LongName='docs.html' DiskId='1' src='web/docs.html'>
+						<Shortcut Id='shelldocs' Directory='ShellS' Name='Help'
+							Advertise='yes'
+							Description='Help on using the Shell'
+							Icon='help.ico'
+						/>
+					</File>
+				</Component>
+
+<?if $(var.ARCH) = "x64" ?>
+				<Directory Id='bridgedir' Name='32bit'>
+				<!-- Bridging pieces for hooking -->
+				<Component Id='Plugins32'
+					Guid='20F5C183-AFE4-4434-8510-42CDDF66F442'
+					Win64='yes'
+					>
+
+					<File Id='hooks32' Name='wdmenu32.dll' DiskId='1'
+								src='x86\wdmenu32.dll' />
+					<File Id='hookhelper' Name='wdhh32.exe' LongName='wezdesk-hh32.exe'
+						DiskId='1' src='x86\wezdesk-hh32.exe' />
+						
+					<File Id='l0409' Name='32-0409.dll' DiskId='1' src='x86\32-0409.dll' />
+					<File Id='l0407' Name='32-0407.dll' DiskId='1' src='x86\32-0407.dll' />
+					<File Id='l040c' Name='32-040c.dll' DiskId='1' src='x86\32-040c.dll' />
+						
+					<File Id='crt32' Name='MSVCR80.DLL' DiskId='1'
+							src='$(var.REDIST32)\Microsoft.VC80.CRT\MSVCR80.DLL'/>
+					<File Id='stl32' Name='MSVCP80.DLL' DiskId='1'
+							src='$(var.REDIST32)\Microsoft.VC80.CRT\MSVCP80.DLL'/>
+					<File Id='crtmanifest32' Name='vc80.man' DiskId='1'
+							LongName='Microsoft.VC80.CRT.manifest'
+							src='$(var.REDIST32)\Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest'/>
+
+
+				</Component>
+				</Directory>
+<?endif ?>
+
+				<Component Id='Plugins'
+					Guid='C64FD37F-BB8F-4690-9E02-4F4A61E7758D'
+					Win64='$(var.WIN64)'
+					>
+
+<?if $(var.ARCH) = "x64" ?>
+					<File Id='hooks64' Name='wdmenu64.dll' DiskId='1'
+								src='$(var.OUTDIR)\wdmenu64.dll' />
+					<File Id='l640409' Name='64-0409.dll' DiskId='1' 
+								src='$(var.OUTDIR)\64-0409.dll' />
+					<File Id='l640407' Name='64-0407.dll' DiskId='1' 
+								src='$(var.OUTDIR)\64-0407.dll' />
+					<File Id='l64040c' Name='64-040c.dll' DiskId='1'
+							src='$(var.OUTDIR)\64-040c.dll' />
+<?endif ?>
+
+<?if $(var.ARCH) = "Intel" ?>
+					<File Id='hooks32' Name='wdmenu32.dll' DiskId='1'
+								src='$(var.OUTDIR)\wdmenu32.dll' />
+					<File Id='l0409' Name='32-0409.dll' DiskId='1' src='$(var.OUTDIR)\32-0409.dll' />
+					<File Id='l0407' Name='32-0407.dll' DiskId='1' src='$(var.OUTDIR)\32-0407.dll' />
+					<File Id='l040c' Name='32-040c.dll' DiskId='1' src='$(var.OUTDIR)\32-040c.dll' />
+<?endif ?>
+
+					<File Id='tray' Name='tray.dll' DiskId='1' src='$(var.OUTDIR)\tray.dll' />
+					<File Id='flasher' Name='flasher.dll' DiskId='1' src='$(var.OUTDIR)\flasher.dll' />
+					<File Id='clock' Name='clock.dll' DiskId='1' src='$(var.OUTDIR)\clock.dll' />
+					<File Id='putty' Name='putty.dll' DiskId='1' src='$(var.OUTDIR)\putty.dll' />
+					<File Id='overview' Name='overview.dll' DiskId='1' src='$(var.OUTDIR)\overview.dll' />
+
+					<File Id='quicklaunch' Name='qlaunch.dll' LongName='quicklaunch.dll' DiskId='1' src='$(var.OUTDIR)\quicklaunch.dll' />
+					<File Id='dock' Name='dock.dll' LongName='dock.dll' DiskId='1' src='$(var.OUTDIR)\dock.dll' />
+					<File Id='taskswitch' Name='tasksw.dll' LongName='taskswitch.dll' DiskId='1' src='$(var.OUTDIR)\taskswitch.dll' />
+					<File Id='launcher' Name='launcher.dll' LongName='launcher.dll' DiskId='1' src='$(var.OUTDIR)\launcher.dll' />
+				</Component>
+
+			</Directory>
+			<Directory Id='ProgramMenuFolder' Name='PMFolder' >
+				<Directory Id='SMEAID' Name='EvilDocS' LongName='Evil, as in Dr'>
+					<Directory Id='ShellS' Name='Shell' LongName='EvilDesk $(var.VERSION)'/>
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id='Complete' Title='All Components' Level='1'>
+			<ComponentRef Id='Core' />
+			<ComponentRef Id='Docs' />
+			<ComponentRef Id='Plugins' />
+<?if $(var.ARCH) = "x64" ?>
+			<ComponentRef Id='Plugins32' />
+<?endif ?>
+		</Feature>
+
+		<FragmentRef Id='ui'/>
+
+	</Product>
+</Wix>
+<!--
+vim:ts=2:sw=2:noet:
+-->

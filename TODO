@@ -1,0 +1,45 @@
+- evdm directives for tiling, cascading windows.
+
+- Context menu won't go away unless you click in it at least once.
+
+- Add more convenient names for hotkeys.
+
+- Add Win-W stuff to system menu for a window.
+
+- Windows quicklaunch ordering
+
+- Middle clicks for tray (should work already?) probably fixed?
+
+- handle the Show Desktop.scf file contents (ToggleDesktop)
+
+- load COM objects in a separate process to see how much memory they use
+
+
+Feature requests:
+Franck Marcia:
+- a way to prevent evil shell to reserve space on the screen and then
+  a hotkey to display evil shell bar
+- a hotkey to display evil shell menu
+- open the current folder in explorer window when double-clicking it
+  from the evil shell menu
+
+- sort startup items by pri
+- plugin to watch for wisptis.exe and kill it
+
+ChangeLog:
+
+Release 6
+- added MaximumWorkspaces item to evdm file.  It allows you to configure the
+  wraparound used by the task-switcher when using it to navigate workspaces.
+  EvilDesk supports a maximum of 32 workspaces. The default for this setting is 4.
+- Fixed uninstallation bug that could cause explorer to start up without the taskbar
+
+Release 5
+
+- added a restart/reload config item to the context menu
+- made Win-W menu into a customizable context menu
+- added .core\TaskSwitch.WorkspaceLabel registry key to control the formatting for the task switcher.
+  Default value is "Workspace %d".
+- Added DateFormat (ddd MMM dd) (GetDateFormat) and MailFormat (Mail: %d) options to the registry for the clock plugin
+- custom hot-key definitions
+

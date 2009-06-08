@@ -1,0 +1,70 @@
+html {
+	background: #55a;
+}
+body {
+	font-family: "Gill Sans MT", "Gill Sans", GillSans, Arial, Helvetica, sans-serif;
+	text-align: justify;
+	line-height: 1.3;
+	color: #333;
+	background: white;
+	max-width: 50em;
+	padding: 2em;
+	margin: 3em;
+	border: solid 2px #449;
+	min-height: 660px;
+}
+h1, h2, h3 {
+	font-weight: normal;
+	font-size: 1.6em;
+	color: #449;
+}
+h2 {
+	font-size: 1.4em;
+}
+
+dd {
+	margin-top: 0.5em;
+	margin-bottom: 1em;
+}
+
+dt {
+	font-style: italic;
+	color: #55a;
+}
+
+dl.top dd {
+	padding-bottom: 1em;
+	border-bottom: solid 1px #aaa;
+}
+
+pre.winreg {
+	border: solid 1px #ddd;
+	padding: 0.5em;
+	background-color: #eee;
+}
+
+div.nav {
+	float: right;
+	font-size: 0.5em;
+	text-align: right;
+}
+
+img.floatright {
+	float: right;
+	padding-left: 1em;
+}
+
+div.uptodate {
+	margin-top: 3em;
+}
+
+div.uptodate, div.uptodate a {
+	font-size: 0.9em;
+	font-style: italic;
+}
+
+div.googlead {
+	float: right;
+	padding-left: 1.2em;
+	clear: right;
+}

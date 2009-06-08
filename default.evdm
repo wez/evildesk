@@ -1,0 +1,157 @@
+# This is an EvilDesk Menu file
+# vim:fileencoding=utf-8
+
+# This rule strips privileges out of your current token before running apps that talk to
+# the internet; this makes things "safer" if the app happens to be exploited, particularly if
+# you're running as admin. This article explains more about that topic:
+# http://msdn.microsoft.com/security/securecode/columns/default.aspx?pull=/library/en-us/dncode/html/secure11152004.asp
+SaferExec NORMAL "/(Internet Explorer|Browser|FireFox|Thunderbird|Outlook|Gaim|trillian|messenger|eudora|lotus notes|Yahoo|Google|sunbird|seamonkey|aim|aol|msmsgs|XChat)/i"
+
+# To disable the alt-tab replacement, comment the next line.
+# Note that if you do this, you may find it harder to keep windows in
+# their workspaces.
+LOAD taskswitch
+# To change the size of the preview in the task switcher:
+SET taskswitch Preview.Width 200
+SET taskswitch Preview.Height 150
+
+# You can set this as high as 32.  Having more workspaces does not
+# increase the resource usage of evildesk itself.  You might want to
+# add appropriate entries to the "workspace" context menu if you use
+# that to move applications between workspaces.
+SET taskswitch MaximumWorkspaces 4
+# To customize the appearance of the task switcher
+#SET taskswitch Background.Image "C:\\export\\wez\\Documents\\My Pictures\\saver\\longhorngrass.bmp"
+#SET taskswitch Font "Trebuchet MS,18,italic"
+#SET taskswitch Font.fg "#fff"
+#SET taskswitch Font.shadow "#444"
+# To change the label used for the workspace on the task switcher:
+#SET taskswitch WorkspaceLabel "Workspace %d"
+
+# To disable the window thumbnail cache, uncomment this line:
+#SET core Thumbnail.Max.Size 0
+
+# Create a slit in the bottom right corner
+SLIT "default"
+#SLIT RIGHT BOTTOM 
+#SLIT BOTTOM MIDDLE "default"
+
+# If you want to prevent the slit from reserving screen space, set the following
+# option:
+# SET slit Floating 1
+# If you want the slit to hide itself, try the following two options:
+# Size in pixels to reserve
+# SET slit AutoHide.Size 2
+# Interval in milliseconds after which to hide the slit
+# SET slit AutoHide.Interval 1400
+
+# Change the background image for a given slit: 
+#SET slit Background.Image "C:\\export\\wez\\Documents\\My Pictures\\saver\\lightning_1600.bmp"
+
+# Load some plugins into the slit we just created
+LOAD tray
+
+# Displays the date, time and unread mail count
+LOAD clock
+# SET clock DateFormat "ddd MMM dd"
+# SET clock MailFormat "Mail: %d"
+#SET clock Font "Trebuchet MS,18,italic"
+#SET clock Font.fg "#fff"
+#SET clock Font.shadow "#444"
+
+#LOAD flasher
+#LOAD quicklaunch
+
+LOAD dock
+# Choose a different graphic for the running app cue
+# SET dock Running.Image "arrow.png"
+
+# Registers a "putty" contextmenu
+LOAD putty
+# SET putty "putty.exe" "C:\\Program Files\\PuTTY\\putty.exe"
+# SET putty "New.Session" "New Session"
+
+# The launch is an alternative to the "run" command that you might be used
+# to.  It's bound to CTRL-space in the default configuration
+LOAD launcher
+
+# Overview is an alternative way to switch tasks
+# default hotkey is Win-F9, configured below (look for "show-overview")
+# If you want to improve the quality of the initial thumbnails show by the overview
+# you can increase the core Thumbnail.Max.Size.  The default is 1572864 bytes; this is the maximal
+# amount of memory that a thumbnail for a window will be allowed to occupy.
+# Overview will happily operate with the thumbnail cache disabled, it will just take a little longer
+# before the window contents are captured and displayed.
+LOAD overview
+
+CONTEXTMENU root
+	SubMenu   $IDS_OPEN_PUTTY_MENU		 putty
+	MergeDirs $IDS_OPEN_ALL_PROGRAMS_MENU $CSIDL_COMMON_STARTMENU $CSIDL_STARTMENU
+	MergeDirs $IDS_OPEN_MY_DOCUMENTS_MENU $CSIDL_COMMON_DOCUMENTS $CSIDL_PERSONAL
+	Execute   $IDS_LAUNCH_TASK_MANAGER "runas" "taskmgr.exe"
+	SubMenu	  $IDS_CONFIGURATION_MENU_CAPTION	 tweakage
+	SubMenu	  $IDS_SLIT_CONFIGURATION_MENU	 slit
+	SubMenu	  $IDS_SHUTDOWN_MENU_CAPTION shutdown
+
+CONTEXTMENU tweakage
+	Execute	  $IDS_SHOW_DESKTOP_PROPERTIES "" "desk.cpl" ""
+	Execute	  $IDS_EXPLORE_QUICKLAUNCH	"open" "%APPDATA%\\Microsoft\\Internet Explorer\\Quick Launch"
+	Execute	  $IDS_EXPLORE_START_MENU	"open" $CSIDL_STARTMENU
+	Execute	  $IDS_EXPLORE_ALL_USERS_START_MENU "open" $CSIDL_COMMON_STARTMENU
+	Execute	  $IDS_SHOW_CONTROL_PANEL 	"open" "explorer.exe" "/root,,::{20D04FE0-3AEA-1069-A2D8-08002B30309D}\\::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+	Execute	  $IDS_SHOW_NETWORK_CONNECTIONS "" "ncpa.cpl"
+	Execute	  $IDS_SHOW_SYSTEM_PROPERTIES	 "runas" "sysdm.cpl"
+	Execute	  $IDS_SHOW_ADD_REMOVE_PROGRAMS "runas" "appwiz.cpl"
+	Execute	  $IDS_SHOW_MANAGE_COMPUTER	 "runas" "compmgmt.msc"
+	Execute   $IDS_SHOW_TIME_DATE "runas" "timedate.cpl"
+
+CONTEXTMENU slit
+	Func    $IDS_SLIT_ALIGN_BOTTOM "change-slit-alignment" "BOTTOM"
+	Func    $IDS_SLIT_ALIGN_RIGHT  "change-slit-alignment" "RIGHT"
+	Func    $IDS_SLIT_ALIGN_TOP    "change-slit-alignment" "TOP"
+	Func    $IDS_SLIT_ALIGN_LEFT   "change-slit-alignment" "LEFT"
+	Func    $IDS_SLIT_GRAVITATE_LEFT "change-slit-gravity" "LEFT"
+	Func    $IDS_SLIT_GRAVITATE_RIGHT "change-slit-gravity" "RIGHT"
+	Func    $IDS_SLIT_GRAVITATE_TOP "change-slit-gravity" "TOP"
+	Func    $IDS_SLIT_GRAVITATE_BOTTOM "change-slit-gravity" "BOTTOM"
+	Func    $IDS_SLIT_GRAVITATE_MIDDLE "change-slit-gravity" "MIDDLE"
+	Func    $IDS_SLIT_FLOATING "set-slit-floating" "~"
+	Func    $IDS_SLIT_AUTO_HIDE "set-slit-autohide" "~"
+
+CONTEXTMENU shutdown
+	Func	$IDS_PERFORM_SUSPEND	"suspend" $IDS_QUERY_SUSPEND
+	Func	$IDS_PERFORM_HIBERNATE "hibernate" $IDS_QUERY_HIBERNATE
+	Func	$IDS_PERFORM_SHUTDOWN  "shutdown" $IDS_QUERY_SHUTDOWN
+	Func	$IDS_PERFORM_REBOOT	 "reboot" $IDS_QUERY_REBOOT
+	Func	$IDS_PERFORM_LOGOFF	 "logoff" $IDS_QUERY_LOGOFF
+	Func	$IDS_PERFORM_WTS_DISCONNECT	 "wts-disconnect" $IDS_QUERY_DISCONNECT
+	Separator
+	Func    $IDS_PERFORM_SHELL_RESTART "restart-shell" $IDS_QUERY_SHELL_RESTART
+	Separator
+	Func	$IDS_PERFORM_SHELL_EXIT 	"quit" $IDS_QUERY_SHELL_EXIT
+
+CONTEXTMENU workspace
+	Func $IDS_MOVE_WINDOW_TO_WORKSPACE_1	"set-window-workspace" "1"
+	Func $IDS_MOVE_WINDOW_TO_WORKSPACE_2 	"set-window-workspace" "2"
+	Func $IDS_MOVE_WINDOW_TO_WORKSPACE_3 	"set-window-workspace" "3"
+	Func $IDS_MOVE_WINDOW_TO_WORKSPACE_4 	"set-window-workspace" "4"
+	Func $IDS_MAKE_STICKY	"set-window-workspace" "*"
+	#Func $IDS_MAKE_TRANSPARENT	"set-window-transparent" "toggle"
+
+# HOTKEY CTRL|ALT F1 Func "set-current-workspace" "1"
+HOTKEY ALT F1 Func "set-current-workspace" "1"
+HOTKEY ALT F2 Func "set-current-workspace" "2"
+HOTKEY ALT F3 Func "set-current-workspace" "3"
+HOTKEY ALT F4 Func "set-current-workspace" "4"
+#HOTKEY WIN R Func "shell-run-dialog"
+HOTKEY WIN R Func "show-launcher"
+HOTKEY WIN E Execute "" "explorer.exe"
+HOTKEY WIN W Func "show-context-menu" "workspace"
+HOTKEY WIN S Func "show-context-menu" "root"
+HOTKEY WIN F9 Func "show-overview" "*"
+HOTKEY "" SLEEP Func "suspend" ""
+
+MATCH CREATE CAPTION "/(vpn|vmware|admin cmd)/i" "set-window-workspace" "4"
+MATCH CREATE CAPTION "/(sunbird|thunderbird|XChat)/i" "set-window-workspace" "3"
+MATCH CREATE CLASS "/(YMPFrame|WMPlayerApp)/i" "set-window-workspace" "*"
+
