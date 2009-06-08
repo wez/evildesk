@@ -8,21 +8,16 @@ head("Wez's Evil Shell\nDownload");
 <h2>License</h2>
 
 <p>
-Copyright &copy; 2004-2007, Wez Furlong, All rights reserved.
+Copyright &copy; 2004-2009, Wez Furlong, All rights reserved.
 </p>
 
 <p>
-This software is provided as-is, in binary form only, with no warranty.  I am
-not liable for any bad mojo (damage), be it mental, physical or meta-physical, that
-arises from its use.  By downloading the software, you assert that you will not
-decompile or otherwise reverse engineer the software in any way, and that you
-will not re-distribute it to any third party in any form without my express
-consent.
+This software is provided as-is, with no warranty.  I am not liable for any bad
+mojo (damage), be it mental, physical or meta-physical, that arises from its
+use.
 </p>
 
-<p>
-<i>All rights reserved; All liabilities disclaimed.</i>
-</p>
+<p><a href="http://bitbucket.org/wez/evildesk/">The source code is available under the terms of the GPLv2</a></p>
 
 <p>
 <b>This is a work in progress.</b>
