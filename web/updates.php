@@ -9,16 +9,16 @@ $changes = array(
 		'http://bitbucket.org/wez/evildesk/'),
 
 	array('RELEASE', '2006-01-26', '0.9.0.209',
-		'http://evildesk.netevil.org/downloads.php'),
+		'http://evildesk.wezfurlong.org/downloads.php'),
 
 	array('BETA', '2007-01-23', '0.9.0.193', 
-		'http://evildesk.netevil.org/downloads/evildesk-0.9.0.193.msi'),
+		'http://evildesk.wezfurlong.org/downloads/evildesk-0.9.0.193.msi'),
 
 	array('BETA', '2007-01-22', '0.9.0.184', 
-		'http://evildesk.netevil.org/downloads/evildesk-0.9.0.184.msi'),
+		'http://evildesk.wezfurlong.org/downloads/evildesk-0.9.0.184.msi'),
 
 	array('RELEASE', '2006-01-01', '0.8',
-		'http://evildesk.netevil.org/downloads.php'),
+		'http://evildesk.wezfurlong.org/downloads.php'),
 );
 
 $filter = 'RELEASE';
@@ -42,7 +42,7 @@ $PUBDATE = date('r', $PUBDATE);
 	version="2.0">
 <channel>
 	<title>EvilDesk Software Updates</title>
-	<link>http://evildesk.netevil.org/</link>
+	<link>http://evildesk.wezfurlong.org/</link>
 	<description>A Windows Desktop Replacement</description>
 	<pubDate><?= $PUBDATE ?></pubDate>
 	<copyright>
@@ -62,9 +62,9 @@ foreach ($changes as $item) {
 	$title = $item[0] . ' ' . $item[2];
 	$link = $item[3];
 	if ($item[0] == 'BETA') {
-		$html_link = 'http://evildesk.netevil.org/beta.php';
+		$html_link = 'http://evildesk.wezfurlong.org/beta.php';
 	} else {
-		$html_link = 'http://evildesk.netevil.org/changelog.php';
+		$html_link = 'http://evildesk.wezfurlong.org/changelog.php';
 	}
 	$content = htmlspecialchars("<p>EvilDesk $title is now available from <a href=\"$link\">$link</a>.<br />Read more about this release at <a href=\"$html_link\">$html_link</a></p>", ENT_QUOTES, 'utf-8');
 ?>

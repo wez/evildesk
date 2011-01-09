@@ -27,9 +27,9 @@ use.
 
 <p>
 If you agree to the license above, you may:<br/>
-<a href="http://evildesk.netevil.org/downloads/evildesk-0.9.0.217.msi"
+<a href="https://bitbucket.org/wez/evildesk/downloads/evildesk-0.9.0.217.msi"
     >Download evildesk.msi (32-bit Windows)</a><br/>
-<a href="http://evildesk.netevil.org/downloads/evildesk-0.9.0.217-win64.msi"
+<a href="https://bitbucket.org/wez/evildesk/downloads/evildesk-0.9.0.217-win64.msi"
     >Download evildesk.msi (64-bit Windows)</a><br/>
 </p>
 
